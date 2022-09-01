@@ -14,6 +14,19 @@ class ServerlessPlugin {
       'package:initialize': this.beforeBuild.bind(this),
       'package:finalize': this.afterBuild.bind(this),
     }
+
+    serverless.configSchemaHandler.defineFunctionProperties('aws', {
+      properties: {
+        embedded: {
+          type: 'object',
+          properties: {
+            files: { type: 'array' },
+            variables: { type: 'object' }
+          },
+          required: ['files', 'variables']
+        }
+      }
+    })
   }
 
   beforeBuild() {
